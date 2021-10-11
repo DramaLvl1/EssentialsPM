@@ -30,6 +30,8 @@ class Main extends PluginBase implements Listener{
     }
     
     public function onDisable() : void {
+        $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
+        $p = $cfg->get("Prefix");
         $this->getServer()->getLogger()->alert($p . " §cEssentialsPM Plugin got disabled successfully");
     }
 }
