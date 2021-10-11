@@ -13,4 +13,9 @@ class TellCommand extends Command{
         parent::__construct("tell", "Reply the last Private Message", "/tell <message>", ["msg"]);
         $this->plugin = $plugin;
     }
+  
+    public function execute(CommandSender $sender, string $commandLabel, array $args)
+    {
+    
+    }
 }
