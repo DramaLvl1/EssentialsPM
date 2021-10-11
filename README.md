@@ -5,7 +5,7 @@ A essentials plugin for PocketMine-MP
 none
 
 ## Planned features & to-do
-- /msg
+- /msg & /tell
 - /r & /reply
 - /msgtoggle
 - /feed
