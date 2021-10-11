@@ -6,6 +6,8 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
 use pocketmine\Server;
 use pocketmine\utils\Config;
+use Drama_Lvl1\EssentialsPM\commands\TellCommand;
+use Drama_Lvl1\EssentialsPM\commands\ReplyCommand;
 
 class Main extends PluginBase implements Listener{
     
