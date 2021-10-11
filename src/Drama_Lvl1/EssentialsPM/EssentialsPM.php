@@ -5,6 +5,7 @@ namespace Drama_Lvl1\EssentialsPM;
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
 use pocketmine\Server;
+use pocketmine\utils\Config;
 
 class Main extends PluginBase implements Listener{
     
