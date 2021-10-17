@@ -11,6 +11,8 @@ use Drama_Lvl1\EssentialsPM\commands\ReplyCommand;
 
 class Main extends PluginBase implements Listener{
     
+    public $last;
+    
     public function onEnable() : void {
         $this->saveResource("config.yml");
         
