@@ -10,7 +10,7 @@ class TellCommand extends Command{
   
     public function __construct(EssentialsPM $plugin)
     {
-        parent::__construct("tell", "Reply the last Private Message", "/tell <message>", ["msg"]);
+        parent::__construct("tell", "Write a message to a player", "/tell <message>", ["msg"]);
         $this->plugin = $plugin;
     }
   
