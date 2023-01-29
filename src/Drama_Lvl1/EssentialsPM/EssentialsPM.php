@@ -9,9 +9,11 @@ use pocketmine\utils\Config;
 use Drama_Lvl1\EssentialsPM\commands\TellCommand;
 use Drama_Lvl1\EssentialsPM\commands\ReplyCommand;
 
-class Main extends PluginBase implements Listener{
+class EssentialsPM extends PluginBase implements Listener{
     
     public $last;
+    public $prefix = [];
+    
     const cfg_version = 1;
     
     public function onEnable() : void 
@@ -22,8 +24,11 @@ class Main extends PluginBase implements Listener{
         $this->getServer()->getCommandMap()->register("tell", new TellCommand($this));
         $this->getServer()->getCommandMap()->register("reply", new ReplyCommand($this));
         
+        $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
+        $this->prefix = $cfg->get("Prefix");
+        
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
-        $this->getServer()->getLogger()->info($p . " §aEssentialsPM Plugin got enabled successfully");
+        $this->getServer()->getLogger()->info($this->prefix . " §aEssentialsPM Plugin got enabled successfully");
     }
     
     private function updateConfig()
@@ -43,7 +48,7 @@ class Main extends PluginBase implements Listener{
         }
     }
     
-    public function reloadConfig()
+    public function reloadConfig() : void
     {
         $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
         $cfg->save();
