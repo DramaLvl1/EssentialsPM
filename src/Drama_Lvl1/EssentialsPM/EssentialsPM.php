@@ -18,7 +18,7 @@ class EssentialsPM extends PluginBase implements Listener{
     
     public function onEnable() : void 
     {
-        $this->saveResource("config.yml");
+        $this->updateConfig();
         
         $this->getServer()->getCommandMap()->unregister($this->getServer()->getCommandMap()->getCommand("tell"));
         $this->getServer()->getCommandMap()->register("tell", new TellCommand($this));
