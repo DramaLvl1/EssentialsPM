@@ -12,8 +12,10 @@ use Drama_Lvl1\EssentialsPM\commands\ReplyCommand;
 class Main extends PluginBase implements Listener{
     
     public $last;
+    const cfg_version = 1;
     
-    public function onEnable() : void {
+    public function onEnable() : void 
+    {
         $this->saveResource("config.yml");
         
         $this->getServer()->getCommandMap()->unregister($this->getServer()->getCommandMap()->getCommand("tell"));
@@ -21,20 +23,35 @@ class Main extends PluginBase implements Listener{
         $this->getServer()->getCommandMap()->register("reply", new ReplyCommand($this));
         
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
-        $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
-        $p = $cfg->get("Prefix");
-        if($cfg->get("version") === 1){
-            $this->getServer()->getLogger()->info($p . " §aThis config is up to date");
-        } else {
-            $this->getServer()->getLogger()->alert($p . " This config is outdated.");
-            $this->getServer()->getLogger()->alert($p . " Please delete this config to recive the new config version");
-            $this->getServer()->getLogger()->alert($p . " And dont forget to copy your messages");
-            $this->getServer()->getPluginManager()->disablePlugin($this);
-        }
         $this->getServer()->getLogger()->info($p . " §aEssentialsPM Plugin got enabled successfully");
     }
     
-    public function onDisable() : void {
+    private function updateConfig()
+    {
+        $this->saveResource("config.yml");
+        
+        $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
+        $p = $cfg->get("Prefix");
+        if($cfg->get("version") === self::cfg_version){
+            $this->getServer()->getLogger()->info($p . " §aThis config is up to date");
+        } else {
+            $this->getServer()->getLogger()->alert($p . " This config is outdated.");
+            rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "old_config_" . $cfg->get("version") . ".yml");
+            $this->saveResource("config.yml");
+            $this->reloadConfig();
+            # $this->getServer()->getPluginManager()->disablePlugin($this);
+        }
+    }
+    
+    public function reloadConfig()
+    {
+        $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
+        $cfg->save();
+        $cfg->reload();
+    }
+    
+    public function onDisable() : void 
+    {
         $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
         $p = $cfg->get("Prefix");
         $this->getServer()->getLogger()->alert($p . " §cEssentialsPM Plugin got disabled successfully");
