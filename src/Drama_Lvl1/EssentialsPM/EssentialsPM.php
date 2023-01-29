@@ -31,7 +31,7 @@ class EssentialsPM extends PluginBase implements Listener{
         $this->getServer()->getLogger()->info($this->prefix . " §aEssentialsPM Plugin got enabled successfully");
     }
     
-    private function updateConfig()
+    private function updateConfig() : void
     {
         $this->saveResource("config.yml");
         
