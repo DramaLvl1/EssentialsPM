@@ -14,6 +14,8 @@ class EssentialsPM extends PluginBase implements Listener{
     public $last;
     public $prefix = [];
     
+    private static $instance = null;
+    
     const cfg_version = 1;
     
     public function onEnable() : void 
@@ -23,6 +25,21 @@ class EssentialsPM extends PluginBase implements Listener{
         $this->getServer()->getCommandMap()->unregister($this->getServer()->getCommandMap()->getCommand("tell"));
         $this->getServer()->getCommandMap()->register("tell", new TellCommand($this));
         $this->getServer()->getCommandMap()->register("reply", new ReplyCommand($this));
+        
+       
+        # $this->getServer()->getCommandMap()->register("msgtoggle", new MsgToggleCommand($this));
+        # $this->getServer()->getCommandMap()->register("feed", new FeedCommand($this));
+        # $this->getServer()->getCommandMap()->register("heal", new HealCommand($this));
+        # $this->getServer()->getCommandMap()->register("tpo", new TpoCommand($this));
+        # $this->getServer()->getCommandMap()->register("tpohere", new TpohereCommand($this));
+        # $this->getServer()->getCommandMap()->register("tpall", new TpallCommand($this));
+        # $this->getServer()->getCommandMap()->register("sudo", new SudoCommand($this));
+        # $this->getServer()->getCommandMap()->register("nick", new NickCommand($this));
+        # $this->getServer()->getCommandMap()->register("realname", new RealNameCommand($this));
+        # $this->getServer()->getCommandMap()->register("resetnick", new ResetNickCommand($this));
+        # $this->getServer()->getCommandMap()->register("day", new DayCommand($this));
+        # $this->getServer()->getCommandMap()->register("night", new NightCommand($this));
+        # $this->getServer()->getCommandMap()->register("item", new ItemCommand($this));
         
         $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
         $this->prefix = $cfg->get("Prefix");
@@ -60,5 +77,13 @@ class EssentialsPM extends PluginBase implements Listener{
         $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
         $p = $cfg->get("Prefix");
         $this->getServer()->getLogger()->alert($p . " §cEssentialsPM Plugin got disabled successfully");
+    }
+    
+     /**
+     * @return EssentialsPM
+     */
+    public static function getInstance(): self
+    {
+        return self::$instance;
     }
 }
