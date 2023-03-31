@@ -3,4 +3,19 @@
 
 # Do not change this
 version: 1
+
+# general settings
+prefix: "§8[§6EssentialsPM§8]"
+no_player: "§cError: no player found"
+
+
+# /tell & /msg settings
+# {sender} - your name
+# {player} - the name of the player
+# {message} - the message that the player send
+message_you: "§8[§6you §c-> §c{player}§8] §6{message}"
+message_other: "§8[§6{sender} §c-> §6you§8] §6{message}"
+
+message_TurnOFFError: "§cError: this player has turned their messages off"
+
 ...
