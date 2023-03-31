@@ -12,6 +12,8 @@ use Drama_Lvl1\EssentialsPM\commands\ReplyCommand;
 class EssentialsPM extends PluginBase implements Listener{
     
     public $last;
+    public $msglast;
+    
     public $prefix = [];
     
     private static $instance = null;
@@ -22,24 +24,26 @@ class EssentialsPM extends PluginBase implements Listener{
     {
         $this->updateConfig();
         
-        $this->getServer()->getCommandMap()->unregister($this->getServer()->getCommandMap()->getCommand("tell"));
-        $this->getServer()->getCommandMap()->register("tell", new TellCommand($this));
-        $this->getServer()->getCommandMap()->register("reply", new ReplyCommand($this));
+        $cmd = $this->getServer()->getCommandMap();
+        
+        $cmd->unregister($this->getServer()->getCommandMap()->getCommand("tell"));
+        $cmd->register("tell", new TellCommand($this));
+        $cmd->register("reply", new ReplyCommand($this));
         
        
-        # $this->getServer()->getCommandMap()->register("msgtoggle", new MsgToggleCommand($this));
-        # $this->getServer()->getCommandMap()->register("feed", new FeedCommand($this));
-        # $this->getServer()->getCommandMap()->register("heal", new HealCommand($this));
-        # $this->getServer()->getCommandMap()->register("tpo", new TpoCommand($this));
-        # $this->getServer()->getCommandMap()->register("tpohere", new TpohereCommand($this));
-        # $this->getServer()->getCommandMap()->register("tpall", new TpallCommand($this));
-        # $this->getServer()->getCommandMap()->register("sudo", new SudoCommand($this));
-        # $this->getServer()->getCommandMap()->register("nick", new NickCommand($this));
-        # $this->getServer()->getCommandMap()->register("realname", new RealNameCommand($this));
-        # $this->getServer()->getCommandMap()->register("resetnick", new ResetNickCommand($this));
-        # $this->getServer()->getCommandMap()->register("day", new DayCommand($this));
-        # $this->getServer()->getCommandMap()->register("night", new NightCommand($this));
-        # $this->getServer()->getCommandMap()->register("item", new ItemCommand($this));
+        # $cmd->register("msgtoggle", new MsgToggleCommand($this));
+        # $cmd->register("feed", new FeedCommand($this));
+        # $cmd->register("heal", new HealCommand($this));
+        # $cmd->register("tpo", new TpoCommand($this));
+        # $cmd->register("tpohere", new TpohereCommand($this));
+        # $cmd->register("tpall", new TpallCommand($this));
+        # $cmd->register("sudo", new SudoCommand($this));
+        # $cmd->register("nick", new NickCommand($this));
+        # $cmd->register("realname", new RealNameCommand($this));
+        # $cmd->register("resetnick", new ResetNickCommand($this));
+        # $cmd->register("day", new DayCommand($this));
+        # $cmd->register("night", new NightCommand($this));
+        # $cmd->register("item", new ItemCommand($this));
         
         $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
         $this->prefix = $cfg->get("Prefix");
