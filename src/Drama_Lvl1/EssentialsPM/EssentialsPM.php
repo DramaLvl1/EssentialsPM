@@ -11,7 +11,7 @@ use Drama_Lvl1\EssentialsPM\commands\ReplyCommand;
 
 class EssentialsPM extends PluginBase implements Listener{
     
-    public $last;
+    public $msgtoggle;
     public $msglast;
     
     public $prefix = [];
