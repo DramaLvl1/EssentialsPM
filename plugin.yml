@@ -6,3 +6,14 @@ author: Drama_Lvl1
 description: This is a Essentials Plugin for PocketMine-MP
 
 permissions:
+  essentialspm.command.tell:
+    default: true
+    description: send a message directly to a player
+    
+  essentialspm.command.reply:
+    default: true
+    description: replies to the last person you write with
+    
+  essentialspm.command.msgtoggle:
+    default: true
+    description: blocks direct messages to you
