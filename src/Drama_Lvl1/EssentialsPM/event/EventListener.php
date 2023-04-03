@@ -24,6 +24,7 @@ class EventListener implements Listener{
         $settings = new Config($this->plugin->getDataFolder() . "config.yml", Config::YAML);
         $player = $event->getPlayer();
         $this->plugin->msglast[$player->getName()] = null;
+        $this->plugin->msgtoggle[$player->getName()] = false;
 
         if($settings->get("enabled") === "true"){
             $event->setJoinMessage(str_replace("{player}", $player->getName(), $settings->get("join")));
