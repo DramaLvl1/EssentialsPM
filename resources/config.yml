@@ -1,4 +1,3 @@
----
 # Config by Drama_Lvl1
 
 # Do not change this
@@ -8,14 +7,23 @@ version: 1
 prefix: "§8[§6EssentialsPM§8]"
 no_player: "§cError: no player found"
 
+# join and leave message
+# {player} - the player whos joining/leaving
+# true = enabled
+# false = disabled
+enabled: "true"
+join: "§6[§a+§6] §c{player}"
+quit: "§6[§c-§6] §c{player}"
+
 
 # /tell & /msg settings
 # {sender} - your name
 # {player} - the name of the player
 # {message} - the message that the player send
-message_you: "§8[§6you §c-> §c{player}§8] §6{message}"
-message_other: "§8[§6{sender} §c-> §6you§8] §6{message}"
+message_you: "§8[§6{sender} §c-> §6{player}§8] §6{message}"
+message_other: "§8[§6{player} §c<- §6{sender}§8] §6{message}"
+
+# /reply settings
+no_player_messaged_yet: "§cError: You didnt message any player yet"
 
 message_TurnOFFError: "§cError: this player has turned their messages off"
-
-...
