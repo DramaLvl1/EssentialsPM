@@ -26,4 +26,9 @@ message_other: "§8[§6{player} §c<- §6{sender}§8] §6{message}"
 # /reply settings
 no_player_messaged_yet: "§cError: You didnt message any player yet"
 
-message_TurnOFFError: "§cError: this player has turned their messages off"
+message_TurnOFFError: "§cError: This player has turned their messages off"
+
+
+# /msgtoggle settings
+msgtoggle_turn_off: "§6You just turn §coff §6your private messages"
+msgtoggle_turn_on: "§6You just turn §aon §6your private messages"
