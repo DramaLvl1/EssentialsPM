@@ -37,8 +37,8 @@ class ReplyCommand extends Command{
             return true;
         }
 
-        $player =  $this->plugin->getServer()->getPlayerByPrefix($this->plugin->msglast[$sender->getName()]);
-        if(@$this->plugin->msgtoggle[$player] === true){
+        $player = $this->plugin->getServer()->getPlayerByPrefix($this->plugin->msglast[$sender->getName()]);
+        if(@$this->plugin->msgtoggle[$player->getName()] === true){
             $sender->sendMessage($prefix ." ". $settings->get("Msg_TurnOFFError"));
             return true;
         }
