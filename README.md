@@ -8,9 +8,9 @@ Beacause it got almost all useful commands in one plugin
 - /msg & /tell
 - /r & /reply
 - custom join & quit messages
+- /msgtoggle
 
 ## Planned features & to-do
-- /msgtoggle
 - /feed
 - /heal
 - /tpo
