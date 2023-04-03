@@ -2,9 +2,9 @@
 
 namespace Drama_Lvl1\EssentialsPM;
 
+use Drama_Lvl1\EssentialsPM\event\EventListener;
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
-use pocketmine\Server;
 use pocketmine\utils\Config;
 use Drama_Lvl1\EssentialsPM\commands\TellCommand;
 use Drama_Lvl1\EssentialsPM\commands\ReplyCommand;
@@ -22,7 +22,18 @@ class EssentialsPM extends PluginBase implements Listener{
     
     public function onEnable() : void 
     {
-        $this->updateConfig();
+        #$this->updateConfig();
+        if ($this->checkConfig() === false){
+            $this->getLogger()->info("§cNo config found");
+            $this->saveResource("config.yml");
+            $this->getLogger()->info("§aA new config has been created");
+        } else {
+            $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
+            $this->prefix = $cfg->get("prefix");
+            $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
+            $this->getServer()->getLogger()->info($this->prefix . " §aEssentialsPM Plugin got enabled successfully");
+            $this->updateConfig();
+        }
         
         $cmd = $this->getServer()->getCommandMap();
         
@@ -44,28 +55,29 @@ class EssentialsPM extends PluginBase implements Listener{
         # $cmd->register("day", new DayCommand($this));
         # $cmd->register("night", new NightCommand($this));
         # $cmd->register("item", new ItemCommand($this));
-        
-        $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
-        $this->prefix = $cfg->get("Prefix");
-        
-        $this->getServer()->getPluginManager()->registerEvents($this, $this);
-        $this->getServer()->getLogger()->info($this->prefix . " §aEssentialsPM Plugin got enabled successfully");
     }
     
     private function updateConfig() : void
     {
-        $this->saveResource("config.yml");
-        
         $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
-        $p = $cfg->get("Prefix");
+        $p = $cfg->get("prefix");
+        $this->getLogger()->info("teeeeeeeeeest");
         if($cfg->get("version") === self::cfg_version){
             $this->getServer()->getLogger()->info($p . " §aThis config is up to date");
         } else {
-            $this->getServer()->getLogger()->alert($p . " This config is outdated.");
+            $this->getServer()->getLogger()->alert("§8[§6EssentialsPM§8] §cThis config is outdated.");
             rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "old_config_" . $cfg->get("version") . ".yml");
             $this->saveResource("config.yml");
-            $this->reloadConfig();
-            # $this->getServer()->getPluginManager()->disablePlugin($this);
+        }
+    }
+
+    public function checkConfig() : bool {
+        if(file_exists($this->getDataFolder() . "config.yml")){
+            $this->getLogger()->info("Config exists");
+            return true;
+        } else {
+            $this->getLogger()->info("Config not exists");
+            return false;
         }
     }
     
@@ -79,7 +91,7 @@ class EssentialsPM extends PluginBase implements Listener{
     public function onDisable() : void 
     {
         $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
-        $p = $cfg->get("Prefix");
+        $p = $cfg->get("prefix");
         $this->getServer()->getLogger()->alert($p . " §cEssentialsPM Plugin got disabled successfully");
     }
     
