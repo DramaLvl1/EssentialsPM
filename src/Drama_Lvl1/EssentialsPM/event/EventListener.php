@@ -37,7 +37,7 @@ class EventListener implements Listener{
         $player = $event->getPlayer();
 
         if($settings->get("enabled") === "true"){
-            $event->setQuitMessage(str_replace("{player}", $player->getName(), $settings->get("leave")));
+            $event->setQuitMessage(str_replace("{player}", $player->getName(), $settings->get("quit")));
         } else {
             $event->setQuitMessage("");
         }
