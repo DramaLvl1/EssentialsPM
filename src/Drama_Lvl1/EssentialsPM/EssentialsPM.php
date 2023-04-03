@@ -2,12 +2,16 @@
 
 namespace Drama_Lvl1\EssentialsPM;
 
+
 use Drama_Lvl1\EssentialsPM\event\EventListener;
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
 use pocketmine\utils\Config;
+
 use Drama_Lvl1\EssentialsPM\commands\TellCommand;
 use Drama_Lvl1\EssentialsPM\commands\ReplyCommand;
+use Drama_Lvl1\EssentialsPM\commands\MsgToggleCommand;
+
 
 class EssentialsPM extends PluginBase implements Listener{
     
@@ -19,10 +23,9 @@ class EssentialsPM extends PluginBase implements Listener{
     private static $instance = null;
     
     const cfg_version = 1;
-    
-    public function onEnable() : void 
+
+    public function onLoad(): void
     {
-        #$this->updateConfig();
         if ($this->checkConfig() === false){
             $this->getLogger()->info("§cNo config found");
             $this->saveResource("config.yml");
@@ -30,19 +33,22 @@ class EssentialsPM extends PluginBase implements Listener{
         } else {
             $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
             $this->prefix = $cfg->get("prefix");
-            $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
             $this->getServer()->getLogger()->info($this->prefix . " §aEssentialsPM Plugin got enabled successfully");
             $this->updateConfig();
         }
-        
+    }
+
+    public function onEnable() : void 
+    {
+        #$this->updateConfig();
+        $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
         $cmd = $this->getServer()->getCommandMap();
         
         $cmd->unregister($this->getServer()->getCommandMap()->getCommand("tell"));
         $cmd->register("tell", new TellCommand($this));
         $cmd->register("reply", new ReplyCommand($this));
-        
-       
-        # $cmd->register("msgtoggle", new MsgToggleCommand($this));
+        $cmd->register("msgtoggle", new MsgToggleCommand($this));
+
         # $cmd->register("feed", new FeedCommand($this));
         # $cmd->register("heal", new HealCommand($this));
         # $cmd->register("tpo", new TpoCommand($this));
