@@ -9,16 +9,16 @@ use pocketmine\player\Player;
 
 use pocketmine\utils\Config;
 
-use pocketmine\Server;
-
 use Drama_Lvl1\EssentialsPM\EssentialsPM;
 
 class TellCommand extends Command{
+
+    private $plugin;
   
     public function __construct(EssentialsPM $plugin)
     {
         $this->setPermission("essentialspm.command.tell");
-        parent::__construct("tell", "Write a message to a player", "/tell <player> <message>", ["msg"]);
+        parent::__construct("tell", "Write a message to a player | /tell <player> <message>", "/tell <player> <message>", ["msg"]);
         $this->plugin = $plugin;
     }
   
@@ -30,48 +30,51 @@ class TellCommand extends Command{
             $sender->sendMessage($prefix . " Please use this command ingame");
             return true;
         }
-      
-        if(empty($args[0])){
-            $sender->sendMessage($prefix . " §cError: No player specified. Usage: /tell <player> <message>");
+
+        if(!isset($args[0])){
+            $sender->sendMessage($prefix . " §cError: No player specified");
             return true;
-          
+        }
+
+        $name = strtolower($args[0]);
+        if($this->plugin->getServer()->getPlayerByPrefix($name) == null){
+            $sender->sendMessage($prefix ." ". $settings->get("no_player"));
+            return true;
+
         } else if(empty($args[1])){
-            $sender->sendMessage($prefix . "§cError: No message specified. Usage: /tell <player> <message>");
+            $sender->sendMessage($prefix . " §cError: No message specified");
             return true;
         }
       
-        $name = strtolower($args[0]);
-        $player = Server::getInstance()->getPlayerByPrefix($name);
-        
-        if($this->plugin->getServer()->getPlayerByPrefix($name) == null){
-            $sender->sendMessage($settings->get("no_player"));
+
+        $player = $this->plugin->getServer()->getPlayerByPrefix($name);
+        $sName = $sender->getName();
+
+        if(@$this->plugin->msgtoggle[$player->getName()] === true){
+            $sender->sendMessage($prefix ." ". $settings->get("message_TurnOFFError"));
             return true;
         } else {
-            if(@$this->plugin->msgtoggle[$player] === true){
-                $sender->sendMessage($settings->get("message_TurnOFFError"));
-                return true;
-            } else {
-                unset($args[0]);
-                $msg = implode(" ", $args);
-                $sender->sendMessage($this->convert($settings->get("message_you"), $player, $sName, $msg));
-                Server::getInstance()->getPlayerByPrefix($name)->sendMessage($this->convert($settings->get("message_other"), $player, $sName, $msg));
-                $this->plugin->msglast[$sender->getName()] = Server::getInstance()->getPlayerByPrefix($name);
-                $this->plugin->msglast[Server::getInstance()->getPlayerByPrefix($name)] = $sender->getName();
-            }
+            unset($args[0]);
+            $msg = implode(" ", $args);
+            $sender->sendMessage($this->convert($settings->get("message_you"), $player, $sName, $msg));
+            $player->sendMessage($this->convert($settings->get("message_other"), $player, $sName, $msg));
+            $this->plugin->msglast[$sender->getName()] = $player->getName();
         }
+        return true;
     }
-  
-     /**
+
+    /**
      * @param string $string
-     * @param $player Player
-     * @param $sName CommandSender
-     * @param $msg String
+     * @param Player $player
+     * @param CommandSender $sName
+     * @param string $msg
+     * @return string
      */
   
     public function convert(string $string, $player, $sName, $msg): string
     {
         $string = str_replace("{sender}", $sName, $string);
-        $string = str_replace("{player}", $player, $string);
+        $string = str_replace("{player}", $player->getName(), $string);
         $string = str_replace("{message}", $msg, $string);
         return $string;
     }
