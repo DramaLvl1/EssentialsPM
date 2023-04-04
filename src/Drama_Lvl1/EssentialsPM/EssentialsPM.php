@@ -3,6 +3,7 @@
 namespace Drama_Lvl1\EssentialsPM;
 
 
+
 use Drama_Lvl1\EssentialsPM\event\EventListener;
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
@@ -11,7 +12,8 @@ use pocketmine\utils\Config;
 use Drama_Lvl1\EssentialsPM\commands\TellCommand;
 use Drama_Lvl1\EssentialsPM\commands\ReplyCommand;
 use Drama_Lvl1\EssentialsPM\commands\MsgToggleCommand;
-
+use Drama_Lvl1\EssentialsPM\commands\FeedCommand;
+use Drama_Lvl1\EssentialsPM\commands\HealCommand;
 
 class EssentialsPM extends PluginBase implements Listener{
     
@@ -48,9 +50,9 @@ class EssentialsPM extends PluginBase implements Listener{
         $cmd->register("tell", new TellCommand($this));
         $cmd->register("reply", new ReplyCommand($this));
         $cmd->register("msgtoggle", new MsgToggleCommand($this));
+        $cmd->register("feed", new FeedCommand($this));
+        $cmd->register("heal", new HealCommand($this));
 
-        # $cmd->register("feed", new FeedCommand($this));
-        # $cmd->register("heal", new HealCommand($this));
         # $cmd->register("tpo", new TpoCommand($this));
         # $cmd->register("tpohere", new TpohereCommand($this));
         # $cmd->register("tpall", new TpallCommand($this));
@@ -67,7 +69,6 @@ class EssentialsPM extends PluginBase implements Listener{
     {
         $cfg = new Config($this->getDataFolder() . "config.yml", Config::YAML);
         $p = $cfg->get("prefix");
-        $this->getLogger()->info("teeeeeeeeeest");
         if($cfg->get("version") === self::cfg_version){
             $this->getServer()->getLogger()->info($p . " §aThis config is up to date");
         } else {
