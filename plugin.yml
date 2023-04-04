@@ -17,3 +17,20 @@ permissions:
   essentialspm.command.msgtoggle:
     default: true
     description: blocks direct messages to you
+
+  essentialspm.command.feed:
+    default: op
+    description: Fill your hunger bars
+
+  essentialspm.command.feed.other:
+    default: op
+    description: fill the hunger bars of other player
+
+  essentialspm.command.heal:
+    default: op
+    description: heal yourself
+
+  essentialspm.command.heal.other:
+    default: op
+    description: heal other players
+
