@@ -1,5 +1,4 @@
 # Config by Drama_Lvl1
-
 # Do not change this
 version: 1
 
@@ -32,3 +31,13 @@ message_TurnOFFError: "§cError: This player has turned their messages off"
 # /msgtoggle settings
 msgtoggle_turn_off: "§6You just turn §coff §6your private messages"
 msgtoggle_turn_on: "§6You just turn §aon §6your private messages"
+
+# /feed & /heal settings
+# {player} - the other player you specified for /heal <name> or /feed <name>
+feed_message: "§6You just filled your hunger bars"
+feed_other: "§6You just filled the hunger bars from §c{player}"
+
+heal_message: "§6You just got healed"
+heal_other: "§6You just healed §c{player}"
+
+
