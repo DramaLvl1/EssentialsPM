@@ -2,8 +2,6 @@
 
 namespace Drama_Lvl1\EssentialsPM;
 
-
-
 use Drama_Lvl1\EssentialsPM\event\EventListener;
 use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
