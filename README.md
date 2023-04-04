@@ -9,10 +9,10 @@ Beacause it got almost all useful commands in one plugin
 - /r & /reply
 - custom join & quit messages
 - /msgtoggle
-
-## Planned features & to-do
 - /feed
 - /heal
+
+## Planned features & to-do
 - /tpo
 - /tpohere
 - /tpall
